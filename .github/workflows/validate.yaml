@@ -1,32 +1,31 @@
 name: Validate Kubernetes Manifests
 
 on:
-push:
-branches: [ main ]
-pull_request:
-branches: [ main ]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-validate:
-runs-on: ubuntu-latest
-steps:
-
-uses: actions/checkout@v4
-
-name: Install kubeconform
-run: |
-wget https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
-tar xf kubeconform-linux-amd64.tar.gz
-sudo mv kubeconform /usr/local/bin
-
-name: Validate YAML files
-run: |
-find . -name '.yaml' -not -path './.git/' -exec kubeconform {} ;
-
-name: Check kustomize build
-uses: imranismail/setup-kustomize@v2
-
-name: Build kustomize
-run: |
-cd apps/otel-demo/base
-kustomize build
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install kubeconform
+        run: |
+          wget https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
+          tar xf kubeconform-linux-amd64.tar.gz
+          sudo mv kubeconform /usr/local/bin
+      
+      - name: Validate YAML files
+        run: |
+          find . -name '*.yaml' -not -path './.git/*' -exec kubeconform {} \;
+      
+      - name: Setup kustomize
+        uses: imranismail/setup-kustomize@v2
+      
+      - name: Build kustomize
+        run: |
+          cd apps/otel-demo/base
+          kustomize build
