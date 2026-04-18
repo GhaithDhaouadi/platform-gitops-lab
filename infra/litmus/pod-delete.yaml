@@ -1,0 +1,23 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+name: frontend-chaos
+namespace: otel-demo
+spec:
+appinfo:
+appns: otel-demo
+applabel: "app.kubernetes.io/component=frontend"
+appkind: deployment
+chaosServiceAccount: litmus
+experiments:
+
+name: pod-delete
+spec:
+components:
+env:
+
+name: TOTAL_CHAOS_DURATION
+value: "30"
+
+name: CHAOS_INTERVAL
+value: "10"
