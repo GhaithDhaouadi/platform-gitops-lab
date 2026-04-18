@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-demo/main/kubernetes-manifests.yaml
+namespace: otel-demo
+
+# Add labels to all resources for ArgoCD tracking
+commonLabels:
+  app.kubernetes.io/managed-by: argocd
+  app.kubernetes.io/part-of: otel-demo
