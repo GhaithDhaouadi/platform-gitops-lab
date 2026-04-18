@@ -6,17 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
-    chart: opentelemetry-demo
-    targetRevision: 0.40.7
-    helm:
-      values: |
-        prometheus:
-          enabled: true
-        grafana:
-          enabled: true
-        jaeger:
-          enabled: true
+    repoURL: https://github.com/GhaithDhaouadi/platform-gitops-lab.git
+    targetRevision: main
+    path: apps/otel-demo/base
   destination:
     server: https://kubernetes.default.svc
     namespace: otel-demo
