@@ -1,5 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+# Deploy a simple nginx instead of broken OTel manifest
 resources:
-  - manifest.yaml
-namespace: otel-demo
+  - deployment.yaml
+  - service.yaml
